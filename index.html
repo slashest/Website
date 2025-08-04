@@ -1,0 +1,580 @@
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="#2F3136" name="theme-color">
+    <title></title>
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/users.css">
+    <link rel="stylesheet" href="/css/popup.css">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@1&amp;f[]=array@400&amp;display=swap" rel="stylesheet">
+    <link rel="icon" href="/img/1267615175779815507.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" data-font="chillax" href="https://api.fontshare.com/v2/css?f[]=chillax@500&amp;display=swap">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bungee&family=Creepster&family=Gloria+Hallelujah&family=Permanent+Marker&display=swap"
+        rel="stylesheet">
+</head>
+
+<style>
+    body {
+        cursor: url(/img/extralsmall.png);
+    }
+    /* Animação básica */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in {
+      opacity: 0;
+    }
+    
+    /* Classes de delay */
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    /* ... outras classes de delay ... */
+    
+    /* Agrupe elementos para animação em seções */
+    .animation-group {
+      margin-bottom: 40px;
+    }
+
+    * {
+    cursor: url('/Aero.cur'), auto !important;
+}
+
+/* Para botões e links, você pode adicionar uma regra específica */
+a, button, .linkedAccountsRedirect svg, .popup-button {
+    cursor: url('/Aero.cur'), pointer !important;
+}
+
+        /* Force layout recalculation on page load */
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Media query debugging */
+        @media screen and (max-width: 768px) {
+            /* Ensure responsive elements are flexible */
+            * {
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+        }
+  </style>
+<!-- <div id="background"></div>
+<div id="background-layer-1" class="background-layer"></div> -->
+
+    <!-- Este código deve ser adicionado ao seu HTML existente -->
+    <div class="popup-overlay" id="redirect-popup">
+        <div class="popup-container">
+            <p class="popup-message" id="popup-message">
+                Você será redirecionado para Discord. Deseja continuar?
+            </p>
+            <div class="popup-buttons">
+                <button class="popup-button popup-button-confirm" id="popup-confirm">Continuar</button>
+                <button class="popup-button popup-button-cancel" id="popup-cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+<body profile="" style="font-family: Satoshi, sans-serif; cursor: url('/img/extralsmall.png'), auto; background-color: #222222;">
+    <div class="video-container">
+        <div class="placeholder" style="background-image: url('/img/placeholder.png');"></div>
+        <video style="filter: contrast(1.2);" class="background" autoplay muted loop preload="auto" disablePictureInPicture>
+            <source src="/img/putitong.mp4" type="video/mp4">
+            <source src="/img/ingame.webm" type="video/webm">
+        </video>
+    </div>
+    
+    <!-- Novo controle de volume -->
+    <div style class="volume-control">
+        <svg class="volume-icon" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24" style="opacity: 0.7;">
+            <path fill="currentColor" d="M3 9v6h4l5 5V4L7 9zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77"></path>
+        </svg>
+        <input id="volume-slider" style="cursor: url('/img/Precision Select.cur') !important;" type="range" class="volume-slider" min="0" max="1" step="0.01" value="1">
+    </div>
+
+    <div class="content" style="position: fixed; width: 100%; align-items: center; max-width: var(--containerWidth); display: flex; justify-content: center; flex-direction: column; gap: 15px; will-change: transform; transition: 700ms cubic-bezier(0.03, 0.98, 0.52, 0.99); transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); margin-top: -60px;">
+        <div class="container" style="will-change: transform; transition: 0ms cubic-bezier(0.03, 0.98, 0.52, 0.99); transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);">
+            <div class="elemento-para-animar delay-7" style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 38px;">
+                <!-- Top avatar: larger and circular, moved down -->
+                <img id="profile-image" style="opacity: 1; width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 0;" class="avatar" src="/img/avatar.png">
+            </div>
+            <div class="profileLayout" style="margin-top: 38px;">
+                <div class="elemento-para-animar delay-10">
+                    <h1 class="profileUsername" style="color: #ffffff; text-shadow: 0 0 20px #ffffff; margin-top: 18px; margin-bottom: 0;">
+                        <span id="username">@James</span>
+                    </h1>
+                </div>
+
+                <div class="elemento-para-animar delay-15">
+                <!-- .profileBadges section removed -->
+                </div>
+                <div class="elemento-para-animar delay-16">
+                    <h3 id="typingText" style="color: #ffffff;" class="profileBio"></h3>
+                    <!-- typingTexts div removed -->
+                </div>
+                <script src="/js/typing.js"></script>  
+                <script src="/js/discordStatus.js"></script>
+                <script src="/js/badgeAnim.js"></script>
+                <script src="/js/title.js"></script>
+                <script src="/js/row.js"></script>
+                <script src="/js/player.js"></script>
+                <script src="/js/container1-music1anim.js"></script>
+                <script src="/js/e1ditQ6vEJSZZqx57987sFCx3bRf.js"></script>
+                <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+                <script src="/js/discordUserImage.js"></script>
+                <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+                <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+                <script src="/js/lockscreen.js"></script>
+            </div>
+
+            <div class="elemento-para-animar delay-17" style="margin-top: 8px;">
+                <div class="presenceWrapper">
+                    <div class="presenceContainer" style="height: 80px;">
+                        <div class="discordInfos">
+                            <div class="discordAvatar">
+                                <img id="profile-image" class="avatarImage" src="/img/avatar.png" alt="Discord Avatar" style="width: 64px; height: 64px; border-radius: 16px;">
+                                <img class="discordStatus" src="/img/idle.png" alt="idle">
+                            </div>
+                            <div class="discordActivity">
+                                <div class="discordUser">
+                                    <div class="discordUserDiv">
+                                        <span id="global-name">James</span>
+                                        <div class="discordUserBadges">
+                                            <!-- <div class="discordUserBadge" data-tooltip="Completou uma Missão">
+                                                <img src="/img/mission.png" alt="Discord Badge">
+                                            </div>
+                                            <div class="discordUserBadge" data-tooltip="Server boosting since Jun 13, 2021">
+                                                <img src="/public/img/boost.png" alt="Discord Badge">
+                                            </div> -->
+
+                                        </div>
+                                    </div>
+                                    <h3>Dangerous Summer ⚠️</h3>
+                                </div>
+                                <div class="discordActivityImage"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="elemento-para-animar delay-18">
+    <div class="linkedAccounts">
+        <a data-type="Discord" class="linkedAccountsRedirect" id="trigger-popup" target="_blank"
+            href="https://discord.com/users/1250093055457886209">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" viewBox="1.96 4.26 20.03 15.53">
+                <path fill="currentColor"
+                    d="M14.82 4.26a10.14 10.14 0 0 0-.53 1.1a14.66 14.66 0 0 0-4.58 0a10.14 10.14 0 0 0-.53-1.1a16 16 0 0 0-4.13 1.3a17.33 17.33 0 0 0-3 11.59a16.6 16.6 0 0 0 5.07 2.59A12.89 12.89 0 0 0 8.23 18a9.65 9.65 0 0 1-1.71-.83a3.39 3.39 0 0 0 .42-.33a11.66 11.66 0 0 0 10.12 0q.21.18.42.33a10.84 10.84 0 0 1-1.71.84a12.41 12.41 0 0 0 1.08 1.78a16.44 16.44 0 0 0 5.06-2.59a17.22 17.22 0 0 0-3-11.59a16.09 16.09 0 0 0-4.09-1.35zM8.68 14.81a1.94 1.94 0 0 1-1.8-2a1.93 1.93 0 0 1 1.8-2a1.93 1.93 0 0 1 1.8 2a1.93 1.93 0 0 1-1.8 2zm6.64 0a1.94 1.94 0 0 1-1.8-2a1.93 1.93 0 0 1 1.8-2a1.92 1.92 0 0 1 1.8 2a1.92 1.92 0 0 1-1.8 2z">
+            </path>
+        </svg>
+        </a>
+        <a data-type="Spotify" class="linkedAccountsRedirect" id="trigger-popup" target="_blank"
+            href="https://open.spotify.com/user/4iha5rf06jsaw0ze60u0ddygj?si=f1d2ebe4e7ec4a54">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" viewBox="2.02 2.02 19.98 19.98">
+                <path fill="currentColor"
+                    d="M12.01 2.019c-5.495 0-9.991 4.496-9.991 9.991c0 5.494 4.496 9.99 9.991 9.99c5.494 0 9.99-4.496 9.99-9.99c0-5.495-4.446-9.991-9.99-9.991zm4.595 14.436c-.199.299-.549.4-.85.201c-2.349-1.45-5.296-1.75-8.793-.951c-.348.102-.648-.148-.748-.449c-.101-.35.149-.648.45-.749c3.795-.85 7.093-.499 9.69 1.1c.35.149.4.548.251.848zm1.2-2.747c-.251.349-.7.499-1.051.249c-2.697-1.646-6.792-2.148-9.939-1.148c-.398.101-.85-.1-.949-.498c-.101-.402.1-.852.499-.952c3.646-1.098 8.143-.548 11.239 1.351c.3.149.45.648.201.998zm.099-2.799c-3.197-1.897-8.542-2.097-11.59-1.146a.938.938 0 0 1-1.148-.6a.937.937 0 0 1 .599-1.151c3.547-1.049 9.392-.85 13.089 1.351c.449.249.599.849.349 1.298c-.25.35-.849.498-1.299.248z">
+                </path>
+            </svg>
+        </a>
+        <a data-type="Telegram" class="linkedAccountsRedirect" id="trigger-popup" target="_blank"
+            href="http://t.me/slashest">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.6em" viewBox="2.02 2.02 19.98 19.98">
+                <path fill="currentColor"
+                    d="M23.1117 4.49449C23.4296 2.94472 21.9074 1.65683 20.4317 2.227L2.3425 9.21601C0.694517 9.85273 0.621087 12.1572 2.22518 12.8975L6.1645 14.7157L8.03849 21.2746C8.13583 21.6153 8.40618 21.8791 8.74917 21.968C9.09216 22.0568 9.45658 21.9576 9.70712 21.707L12.5938 18.8203L16.6375 21.8531C17.8113 22.7334 19.5019 22.0922 19.7967 20.6549L23.1117 4.49449ZM3.0633 11.0816L21.1525 4.0926L17.8375 20.2531L13.1 16.6999C12.7019 16.4013 12.1448 16.4409 11.7929 16.7928L10.5565 18.0292L10.928 15.9861L18.2071 8.70703C18.5614 8.35278 18.5988 7.79106 18.2947 7.39293C17.9906 6.99479 17.4389 6.88312 17.0039 7.13168L6.95124 12.876L3.0633 11.0816ZM8.17695 14.4791L8.78333 16.6015L9.01614 15.321C9.05253 15.1209 9.14908 14.9366 9.29291 14.7928L11.5128 12.573L8.17695 14.4791Z">
+                </path>
+            </svg>
+        </a>
+        <a data-type="Roblox" class="linkedAccountsRedirect" id="trigger-popup" target="_blank" href="https://www.roblox.com/users/2482960/profile">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" viewBox="2 12 50 30">
+                <path fill="currentColor"
+                    d="M 12.125 1.9980469 A 1.0001 1.0001 0 0 0 11.199219 2.7441406 L 2.0332031 37.576172 A 1.0001 1.0001 0 0 0 2.7460938 38.798828 L 37.580078 47.966797 A 1.0001 1.0001 0 0 0 38.802734 47.253906 L 47.96875 12.419922 A 1.0001 1.0001 0 0 0 47.255859 11.197266 L 12.421875 2.03125 A 1.0001 1.0001 0 0 0 12.125 1.9980469 z M 21.5 19 L 31 21.5 L 28.5 31 L 19 28.5 L 21.5 19 z">
+                </path>
+            </svg>
+        </a>
+    </div>
+</div>
+
+    
+    <div class="elemento-para-animar delay-20">
+    <!-- Substitua o código atual das views por esse grupo de elementos -->
+    <div class="profileStats">
+    <!-- Seção de views -->
+    <div class="profileViews" data-type="Views">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+        <span style="font-weight:400;font-size:17px">7,896</span>
+    </div>
+    
+    <!-- Separador -->
+    <div class="separator"></div>
+    
+    <!-- Seção de localização -->
+    <div class="profileLocation" data-type="Location">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+        </svg>
+        <span style="font-weight:550;font-size:17px">BR</span>
+    </div>
+    </div>
+    </div>
+
+    
+</div>
+
+<div class="elemento-para-animar delay-5">
+    <div style="margin-top: -40px; min-height: 340px; overflow: visible; will-change: transform; transition: 0ms cubic-bezier(0.03, 0.98, 0.52, 0.99); transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); display: flex; justify-content: center; align-items: center;" class="music-container">
+       <div class="music-player" style="display: flex; flex-direction: column; align-items: center; min-width: 340px; min-height: 300px; padding: 24px 0 20px 0; overflow: visible; justify-content: center;">
+            <!-- Song poster -->
+            <img id="song-poster" src="/img/avatar.png" alt="Song Poster" style="width: 110px; height: 110px; border-radius: 16px; margin-bottom: 12px; box-shadow: 0 2px 12px #0003; display: block; margin-left: auto; margin-right: auto; object-fit: cover;">
+            <!-- Song name -->
+            <div id="song-title" style="font-size: 1.2em; font-weight: 600; color: #fff; margin-bottom: 2px; text-align: center;">Testing Song</div>
+            <!-- Artist name -->
+            <div id="song-artist" style="font-size: 1em; font-weight: 400; color: #ccc; margin-bottom: 12px; text-align: center;">Yeat</div>
+            <div class="player-timeline" style="width: 90%; display: flex; align-items: center; justify-content: center;">
+                <span class="current-time" id="current-time" style="margin-right: 5px; opacity: 0.9">0:00</span>
+                <div class="timeline" style="flex: 1;">
+                    <div class="timeline-progress" id="timeline-progress"></div>
+                </div>
+                <span class="total-time" id="total-time" style="margin-left: 5px; opacity: 0.9">0:00</span>
+            </div>
+            <div class="player-controls" style="width: 100%; display: flex; justify-content: center; align-items: center;">
+                <svg id="prev-btn" style="opacity: 0.4; cursor:pointer;" class="prev" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M7 6c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1s-1-.45-1-1V7c0-.55.45-1 1-1m3.66 6.82l5.77 4.07c.66.47 1.58-.01 1.58-.82V7.93c0-.81-.91-1.28-1.58-.82l-5.77 4.07a1 1 0 0 0 0 1.64"></path></svg>
+                <svg id="play-btn" class="pause-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" style="cursor: pointer; pointer-events: auto;">
+                    <path fill="currentColor" d="M8 19c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2s-2 .9-2 2v10c0 1.1.9 2 2 2m6-12v10c0 1.1.9 2 2 2s2-.9 2-2V7c0-1.1-.9-2-2-2s-2 .9-2 2"></path>
+                </svg>
+                <svg id="pause-btn" class="play-pause" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" style="cursor: pointer; display: none; pointer-events: auto;">
+                    <path fill="currentColor" d="M8 17.175V6.825q0-.425.3-.713t.7-.287q.125 0 .263.037t.262.113l8.15 5.175q.225.15.338.375t.112.475t-.112.475t-.338.375l-8.15 5.175q-.125.075-.262.113T9 18.175q-.4 0-.7-.288t-.3-.712"></path>
+                </svg>
+                <svg id="next-btn" style="opacity: 0.4; cursor:pointer;" class="next" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m7.58 16.89l5.77-4.07c.56-.4.56-1.24 0-1.63L7.58 7.11C6.91 6.65 6 7.12 6 7.93v8.14c0 .81.91 1.28 1.58.82M16 7v10c0 .55.45 1 1 1s1-.45 1-1V7c0-.55-.45-1-1-1s-1 .45-1 1"></path></svg>
+            </div>
+            <audio id="audio-player" class="audioPlayer"></audio>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Remove popup and make links open instantly
+    document.querySelectorAll('a#trigger-popup').forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Remove preventDefault, just open the link
+            window.open(this.getAttribute('href'), '_blank');
+        });
+    });
+});
+</script>
+<script>
+    // Atualizar status na página a cada 10 segundos
+    setInterval(() => {
+      fetch('/status')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('currentStatus').innerText = data.status;
+        });
+    }, 10000);
+  </script>
+  <script>
+    // Script isolado para o áudio de chuva em background
+document.addEventListener('DOMContentLoaded', function() {
+    // Seleciona especificamente o áudio de chuva, não o player de música
+    const rainAudio = document.querySelector('audio[src="/img/praiafake.mp3"]');
+    
+    if (!rainAudio) {
+        console.error('Elemento de áudio da chuva não encontrado');
+        return;
+    }
+    
+    // Configurar o áudio de chuva
+    rainAudio.loop = true;
+    rainAudio.volume = 0.05; // Volume baixo para som ambiente
+    
+    // Variável para controlar se já tentamos iniciar o áudio
+    let audioStartAttempted = false;
+    
+    // Função para tentar iniciar o áudio da chuva
+    function tryPlayRainAudio() {
+        if (audioStartAttempted) return;
+        audioStartAttempted = true;
+        
+        const playPromise = rainAudio.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log('Autoplay do áudio de chuva bloqueado. Aguardando interação:', error);
+                
+                // Criar uma função de evento única para iniciar o áudio
+                const startRainAudio = function() {
+                    rainAudio.play().catch(err => {
+                        console.log('Ainda não foi possível iniciar o áudio de chuva:', err);
+                    });
+                    
+                    // Remover os listeners após a primeira tentativa
+                    document.removeEventListener('click', startRainAudio);
+                    document.removeEventListener('touchstart', startRainAudio);
+                    document.removeEventListener('keydown', startRainAudio);
+                };
+                
+                // Adicionar eventos para diferentes tipos de interação
+                document.addEventListener('click', startRainAudio, { once: true });
+                document.addEventListener('touchstart', startRainAudio, { once: true });
+                document.addEventListener('keydown', startRainAudio, { once: true });
+            });
+        }
+    }
+    
+    // Tentar iniciar o áudio imediatamente
+    tryPlayRainAudio();
+    
+    // Backup: tentar novamente após 1 segundo
+    setTimeout(tryPlayRainAudio, 1000);
+});
+  </script>
+  <script>
+fetch("https://api.lanyard.rest/v1/users/1250093055457886209")
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      const user = data.data.discord_user;
+      const username = user.username || "Unknown";
+      const globalName = user.global_name || "Anonymous";
+      const avatarHash = user.avatar;
+
+      document.getElementById("username").textContent = "@" + username;
+      document.getElementById("global-name").textContent = globalName;
+
+      if (avatarHash) {
+        const avatarUrl = `https://cdn.discordapp.com/avatars/1250093055457886209/${avatarHash}.png?size=1024`;
+        document.querySelectorAll("#profile-image").forEach(img => img.src = avatarUrl);
+      }
+    }
+  });
+</script>
+<script>
+const songs = [
+    {
+      title: "[ADL IS COMING]",
+      artist: "Yeat",
+      oga: "https://files.catbox.moe/0qirhd.ogg",
+      poster: "https://t2.genius.com/unsafe/1192x0/https%3A%2F%2Fimages.genius.com%2F20ee57d73a6764ced05bc14fbd43514c.1000x1000x1.png"
+    },
+    {
+      title: "M.F.U",
+      artist: "Yeat, SahBabii",
+      oga: "https://files.catbox.moe/i3ftrp.ogg",
+      poster: "https://t2.genius.com/unsafe/1192x0/https%3A%2F%2Fimages.genius.com%2F20ee57d73a6764ced05bc14fbd43514c.1000x1000x1.png"
+    },
+    {
+      title: "BACK THËN",
+      artist: "Yeat",
+      oga: "https://files.catbox.moe/q7nauy.ogg",
+      poster: "https://t2.genius.com/unsafe/425x425/https%3A%2F%2Fimages.genius.com%2Fdc431596045b63f47d256ad3d626f4d2.1000x1000x1.jpg"
+    },
+    {
+      title: "Excuse My French",
+      artist: "Fimiguerreo, Len",
+      oga: "https://files.catbox.moe/er6wt0.ogg",
+      poster: "https://i1.sndcdn.com/artworks-65aA51pswEkG-0-t500x500.jpg"
+    },
+    {
+      title: "So What",
+      artist: "Ken Carson",
+      oga: "https://files.catbox.moe/p1a5wd.ogg",
+      poster: "https://images.genius.com/d3a0f08457e58a24e5c4cf357f23b987.300x300x1.png"
+    },
+    {
+      title: "THEY TELL MË",
+      artist: "Yeat",
+      oga: "https://files.catbox.moe/jbprvx.ogg",
+      poster: "https://i.scdn.co/image/ab67616d0000b2738fd4ee592690d0a94caa0045"
+    },
+    {
+      title: "Talking 2 A Ghost",
+      artist: "OsamaSon",
+      oga: "https://files.catbox.moe/l6cnol.ogg",
+      poster: "https://m.media-amazon.com/images/I/61zNhn0nPqL._UF1000,1000_QL80_.jpg"
+    },
+    {
+      title: "grinning",
+      artist: "saturn, oaf1",
+      oga: "https://files.catbox.moe/7um107.ogg",
+      poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLT9LTxHLtJau1g96Zh1hDD04klYjdEnVNDQ&s"
+    },
+    {
+      title: "PRETTIEST ONE",
+      artist: "Destroy Lonely",
+      oga: "https://files.catbox.moe/ay0d3o.ogg",
+      poster: "https://i.scdn.co/image/ab67616d0000b273dca2deff544636f1ad1d9d96"
+    },
+    {
+      title: "1093",
+      artist: "Yeat",
+      oga: "https://files.catbox.moe/2fa3zl.ogg",
+      poster: "https://i.scdn.co/image/ab67616d0000b2739567b80f50a5b9f0178ae993"
+    },
+    {
+      title: "U Kan Do It Too",
+      artist: "Playboi Carti",
+      oga: "https://files.catbox.moe/nv3o9q.ogg",
+      poster: "https://i1.sndcdn.com/artworks-k5TKfiCS3zYqoOWH-IKVxUw-t500x500.jpg"
+    },
+    {
+      title: "OLYMPIAN",
+      artist: "Playboi Carti",
+      oga: "https://files.catbox.moe/wr2u9z.ogg",
+      poster: "https://upload.wikimedia.org/wikipedia/commons/7/7b/I_Am_Music_by_Playboi_Carti.jpg"
+    },
+    {
+      title: "Jim Carrey",
+      artist: "Destroy Lonely",
+      oga: "https://files.catbox.moe/69jfcu.ogg",
+      poster: "https://images.genius.com/301f1fe0f2c3dadfcc2bfc00b44e48fd.1000x1000x1.png"
+    },
+    {
+      title: "5 Star Raver",
+      artist: "Destroy Lonely",
+      oga: "https://files.catbox.moe/9pb6y9.ogg",
+      poster: "https://t2.genius.com/unsafe/425x425/https%3A%2F%2Fimages.genius.com%2F9b6bd7273381f3dd9c08b690fd98fe6a.486x486x1.png"
+    },
+    {
+      title: "Dismantled",
+      artist: "Ken Carson",
+      oga: "https://files.catbox.moe/a0m3dk.ogg",
+      poster: "https://upload.wikimedia.org/wikipedia/en/2/26/Ken_Carson_-_More_Chaos.jpg"
+    },
+    {
+      title: "DANGEROUS",
+      artist: "Destroy Lonely",
+      oga: "https://files.catbox.moe/gvvrm4.ogg",
+      poster: "https://images.genius.com/58faeaff2ae9c122d896cc8156535b7d.1000x1000x1.png"
+    },
+    {
+      title: "TALKING SHIT / HOLD IT UP",
+      artist: "Yeat",
+      oga: "https://files.catbox.moe/up0vfm.ogg",
+      poster: "https://files.catbox.moe/gpb59u.png"
+    },
+    {
+      title: "COMË N GO",
+      artist: "Yeat",
+      oga: "https://files.catbox.moe/t0tpwd.ogg",
+      poster: "https://t2.genius.com/unsafe/1192x0/https%3A%2F%2Fimages.genius.com%2F20ee57d73a6764ced05bc14fbd43514c.1000x1000x1.png"
+    },
+    {
+      title: "what zit tooya",
+      artist: "xaviersobased",
+      oga: "https://files.catbox.moe/mdlivy.ogg",
+      poster: "https://t2.genius.com/unsafe/1192x0/https%3A%2F%2Fimages.genius.com%2Fe8d986cd348f3dbd22f82ceef879b8e1.500x500x1.jpg"
+    }
+];
+
+let currentSong = 0;
+const audio = document.getElementById('audio-player');
+const songTitle = document.getElementById('song-title');
+const songArtist = document.getElementById('song-artist');
+const songPoster = document.getElementById('song-poster');
+const playBtn = document.getElementById('play-btn');
+const pauseBtn = document.getElementById('pause-btn');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const currentTimeEl = document.getElementById('current-time');
+const totalTimeEl = document.getElementById('total-time');
+const timelineProgress = document.getElementById('timeline-progress');
+const volumeSlider = document.getElementById('volume-slider');
+
+function loadSong(index, autoplay = false) {
+  const song = songs[index];
+  songTitle.textContent = song.title;
+  songArtist.textContent = song.artist;
+  songPoster.src = song.poster;
+  audio.src = song.oga;
+  audio.load();
+  currentTimeEl.textContent = "0:00";
+  timelineProgress.style.width = "0%";
+  audio.onloadedmetadata = () => {
+    totalTimeEl.textContent = formatTime(audio.duration);
+    if (autoplay) {
+      audio.play();
+      playBtn.style.display = "none";
+      pauseBtn.style.display = "inline";
+    }
+  };
+}
+
+function formatTime(sec) {
+  sec = Math.floor(sec);
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return m + ":" + (s < 10 ? "0" : "") + s;
+}
+
+audio.addEventListener('timeupdate', () => {
+  currentTimeEl.textContent = formatTime(audio.currentTime);
+  if (audio.duration) {
+    timelineProgress.style.width = ((audio.currentTime / audio.duration) * 100) + "%";
+  }
+});
+
+audio.addEventListener('ended', () => {
+  nextSong();
+});
+
+playBtn.addEventListener('click', () => {
+  audio.play();
+  playBtn.style.display = "none";
+  pauseBtn.style.display = "inline";
+});
+
+pauseBtn.addEventListener('click', () => {
+  audio.pause();
+  pauseBtn.style.display = "none";
+  playBtn.style.display = "inline";
+});
+
+prevBtn.addEventListener('click', () => {
+  currentSong = (currentSong - 1 + songs.length) % songs.length;
+  loadSong(currentSong, true);
+});
+
+nextBtn.addEventListener('click', () => {
+  nextSong();
+});
+
+function nextSong() {
+  currentSong = (currentSong + 1) % songs.length;
+  loadSong(currentSong, true);
+}
+
+// Volume slider event
+volumeSlider.addEventListener('input', function() {
+  audio.volume = parseFloat(this.value);
+});
+
+// Initial load
+loadSong(currentSong, false);
+pauseBtn.style.display = "none";
+playBtn.style.display = "inline";
+audio.volume = volumeSlider.value;
+</script>
+</body>
+
+</html>
